@@ -1,0 +1,55 @@
+<mat-card>
+
+  <div [formGroup]="form" class="add-field">
+    <div mat-dialog-content>
+      <h2>Add Fields</h2>
+      <mat-form-field>
+        <input formControlName="firstName" ngDefaultControl matInput placeholder="First Name">
+        <mat-error *ngIf="firstName?.errors?.['required']">
+          First name is required
+
+        </mat-error>
+        <mat-error *ngIf="firstName?.errors?.['minlength']">
+          First name should be at least 3 characters
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input formControlName="lastName" ngDefaultControl matInput placeholder="Last Name">
+        <mat-error *ngIf="form.controls['lastName'].invalid">
+          Field name is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input formControlName="address" ngDefaultControl matInput placeholder="Address">
+        <mat-error *ngIf="form.controls['address'].invalid">
+          Field name is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input formControlName="phoneNumber" ngDefaultControl matInput placeholder="Phone Number">
+        <mat-error *ngIf="form.controls['phoneNumber'].invalid">
+          Field name is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input formControlName="email" ngDefaultControl matInput placeholder="Email" [email]="true">
+        <mat-error *ngIf="email?.errors?.['required']">
+          Email is required
+
+        </mat-error>
+        <mat-error *ngIf="email?.errors?.['usernameAlreadyExists']">
+          Email Exist
+        </mat-error>
+        <mat-error *ngIf="email?.errors?.['email']">
+          Email malformatted
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+  </div>
+</mat-card>
+
+<button mat-raised-button [disabled]="form.invalid" color="primary" (click)="save()">Save</button>
+<ng-container *ngIf="edit">
+  <button mat-raised-button color="accent" (click)="closeTab()">Close</button>
+</ng-container>

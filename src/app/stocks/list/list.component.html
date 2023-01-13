@@ -1,0 +1,49 @@
+<mat-card>
+<mat-checkbox (change)="rupture()" [(ngModel)]="ruptureStockBool">Filter Rupture Stock</mat-checkbox>
+  <div *ngIf="ruptureStockBool" >
+    <mat-label>Limit of rupture</mat-label>
+    <input *ngIf="ruptureStockBool" type="number" [(ngModel)]="ruptureStock" (change)="rupture()" matInput
+           placeholder="Rupture">
+  </div>
+
+  <table mat-table [dataSource]="dataSource.content" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="product">
+      <th mat-header-cell *matHeaderCellDef> Product </th>
+      <td mat-cell *matCellDef="let element"> {{element.product.name}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="quantity">
+      <th mat-header-cell *matHeaderCellDef> Quantity </th>
+      <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+    </ng-container>
+    <!-- Edit Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let element"  >
+        <button mat-icon-button (click)="editElement(element)">
+          <mat-icon aria-label="Edit" class="mat-primary">edit</mat-icon>
+        </button>
+
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [length]="dataSource.totalElements"
+                 [pageIndex]="dataSource.number"
+                 (page)="changePage($event)"
+
+                 [pageSize]="pageSize"
+                 [showFirstLastButtons]="true"
+                 [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>
+</mat-card>
+

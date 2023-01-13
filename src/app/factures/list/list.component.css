@@ -1,0 +1,15 @@
+table {
+  width: 100%;
+}
+th {
+  text-align: center!important;
+}
+td {
+  text-align: center;
+}
+.payed {
+  background-color: #DCEDC8;
+}
+.notPayed {
+  background-color: #FFCDD2;
+}

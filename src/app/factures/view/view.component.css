@@ -1,0 +1,12 @@
+table {
+  width: 100%;
+}
+th {
+  text-align: center!important;
+}
+td {
+  text-align: center;
+}
+mat-card {
+  margin-top: 20px;
+}

@@ -1,0 +1,38 @@
+<mat-card>
+
+  <div [formGroup]="form" class="add-field">
+    <div mat-dialog-content>
+      <h2>Add Fields</h2>
+      <mat-form-field>
+        <input formControlName="name" ngDefaultControl matInput placeholder="Name">
+        <mat-error *ngIf="name?.errors?.['required']">
+          Name is required
+        </mat-error>
+        <mat-error *ngIf="name?.errors?.['minlength']">
+          Name should be at least 3 characters
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input formControlName="price" ngDefaultControl matInput placeholder="Price">
+        <mat-error *ngIf="form.controls['price'].invalid">
+          Price is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="category" [compareWith]="compareCategory">
+          <mat-option *ngFor="let category of categories" [value]="category">{{category.name}}</mat-option>
+          <mat-error *ngIf="form.controls['category'].invalid">
+            Category is required
+          </mat-error>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+  </div>
+</mat-card>
+
+<button mat-raised-button [disabled]="form.invalid" color="primary" (click)="save()">Save</button>
+<ng-container *ngIf="edit">
+  <button mat-raised-button color="accent" (click)="closeTab()">Close</button>
+</ng-container>

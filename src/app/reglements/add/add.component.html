@@ -1,0 +1,65 @@
+<mat-card>
+
+  <div [formGroup]="form" class="add-field">
+    <div mat-dialog-content>
+      <mat-form-field>
+        <mat-label>Client</mat-label>
+        <mat-select formControlName="client" (selectionChange)="clientChanged($event)" [compareWith]="compareClient">
+          <mat-option *ngFor="let client of clients" [value]="client">{{client.firstName}} {{client.lastName}}</mat-option>
+          <mat-error *ngIf="form.controls['client'].invalid">
+            Client is required
+          </mat-error>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Date</mat-label>
+        <input matInput (click)="picker.open()" formControlName="date" ngDefaultControl [matDatepicker]="picker">
+        <mat-datepicker #picker ></mat-datepicker>
+        <mat-error *ngIf="form.controls['date'].invalid">
+          Date is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
+        <input formControlName="amount" (change)="amountChanged()" ngDefaultControl matInput placeholder="amount">
+        <mat-error *ngIf="amount?.errors?.['required']">
+          amount is required
+        </mat-error>
+      </mat-form-field>
+
+      <button mat-icon-button (click)="addItem()">
+        <mat-icon aria-label="Edit" class="mat-primary">add</mat-icon>
+      </button>
+      <ng-container formArrayName="items">
+        <ng-container *ngFor="let item of formItems.controls; let index = index; let last = last" >
+          <ng-container [formGroupName]="index">
+            <mat-card >
+              <div *ngIf="item" class="add-field">
+
+                <div mat-dialog-content>
+                  <mat-form-field>
+                    <mat-label>Facture</mat-label>
+                    <mat-select ngDefaultControl formControlName="facture" [compareWith]="compareFacture">
+                      <mat-option *ngFor="let facture of facturesOnlyOptions" [value]="facture">{{facture.code}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field >
+                    <input formControlName="amount" type="number" matInput placeholder="Amount">
+
+                  </mat-form-field>
+                </div>
+
+              </div>
+            </mat-card>
+          </ng-container>
+
+        </ng-container>
+      </ng-container>
+    </div>
+
+  </div>
+</mat-card>
+
+<button mat-raised-button [disabled]="form.invalid" color="primary" (click)="save()">Save</button>
+<ng-container *ngIf="edit">
+  <button mat-raised-button color="accent" (click)="closeTab()">Close</button>
+</ng-container>

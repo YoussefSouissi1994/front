@@ -1,0 +1,53 @@
+<mat-card>
+  <table mat-table [dataSource]="dataSource.content" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="client">
+      <th mat-header-cell *matHeaderCellDef> Client </th>
+      <td mat-cell *matCellDef="let element"> {{element.client.firstName}} </td>
+    </ng-container>
+
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="amount">
+      <th mat-header-cell *matHeaderCellDef> Amount </th>
+      <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="date">
+      <th mat-header-cell *matHeaderCellDef> Date </th>
+      <td mat-cell *matCellDef="let element"> {{element.date}} </td>
+    </ng-container>
+
+    <!-- Edit Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let element"  >
+        <button mat-icon-button (click)="editElement(element)">
+          <mat-icon aria-label="Edit" class="mat-primary">edit</mat-icon>
+        </button>
+
+        <button mat-icon-button (click)="deleteElement(element)">
+          <mat-icon aria-label="Delete" class="mat-warn">delete</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [length]="dataSource.totalElements"
+                 [pageIndex]="dataSource.number"
+                 (page)="changePage($event)"
+
+                 [pageSize]="pageSize"
+                 [showFirstLastButtons]="true"
+                 [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>
+</mat-card>
+

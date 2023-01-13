@@ -1,0 +1,53 @@
+<mat-card>
+  <table mat-table [dataSource]="dataSource.content" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="client">
+      <th mat-header-cell *matHeaderCellDef> Client </th>
+      <td mat-cell *matCellDef="let element"> {{element.facture.client.firstName}} {{element.facture.client.lastName}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="code">
+      <th mat-header-cell *matHeaderCellDef> Code </th>
+      <td mat-cell *matCellDef="let element"> {{element.facture.code}} </td>
+    </ng-container>
+    <!-- Name Column -->
+    <ng-container matColumnDef="needToPay">
+      <th mat-header-cell *matHeaderCellDef> Need To Pay </th>
+      <td mat-cell *matCellDef="let element"> {{element.needToPay}} </td>
+    </ng-container>
+
+    <!-- Edit Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef> Actions </th>
+      <td mat-cell *matCellDef="let element"  >
+        <button mat-icon-button (click)="editElement(element.facture)">
+          <mat-icon aria-label="Edit" class="mat-primary">edit</mat-icon>
+        </button>
+
+        <button mat-icon-button (click)="deleteElement(element.facture)">
+          <mat-icon aria-label="Delete" class="mat-warn">delete</mat-icon>
+        </button>
+        <button mat-icon-button title="View" (click)="viewElement(element)">
+          <mat-icon aria-label="View" class="mat-primary">visibility</mat-icon>
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" [class]="row.needToPay ? 'notPayed' : 'payed'"></tr>
+  </table>
+
+  <mat-paginator [length]="dataSource.totalElements"
+                 [pageIndex]="dataSource.number"
+                 (page)="changePage($event)"
+
+                 [pageSize]="pageSize"
+                 [showFirstLastButtons]="true"
+                 [pageSizeOptions]="[5, 10, 25, 100]">
+  </mat-paginator>
+</mat-card>

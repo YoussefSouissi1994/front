@@ -1,0 +1,76 @@
+<mat-card>
+
+  <form [formGroup]="form" class="add-field">
+    <div mat-dialog-content>
+      <mat-form-field>
+        <mat-label>Client</mat-label>
+        <mat-select formControlName="client" (selectionChange)="clientChanged()" [compareWith]="compareClient">
+          <mat-option *ngFor="let client of clients" [value]="client">{{client.firstName}} {{client.lastName}}</mat-option>
+          <mat-error *ngIf="form.controls['client'].invalid">
+            Client is required
+          </mat-error>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <input formControlName="code" ngDefaultControl matInput placeholder="code">
+        <mat-error *ngIf="code?.errors?.['required']">
+          code is required
+        </mat-error>
+        <mat-error *ngIf="code?.errors?.['minlength']">
+          Code should be at least 3 characters
+        </mat-error>
+      </mat-form-field>
+
+      <button mat-icon-button (click)="addItem()">
+        <mat-icon aria-label="Edit" class="mat-primary">add</mat-icon>
+      </button>
+      <ng-container formArrayName="items">
+        <ng-container *ngFor="let item of formItems.controls; let index = index; let last = last" >
+          <ng-container [formGroupName]="index">
+            <mat-card >
+              <div *ngIf="item" class="add-field">
+
+                <div mat-dialog-content>
+                  <mat-form-field>
+                    <mat-label>Product</mat-label>
+                    <mat-select ngDefaultControl formControlName="product" [compareWith]="compareProduit">
+                      <mat-option (onSelectionChange)="productChanged(index, $event)" *ngFor="let produit of products" [value]="produit">{{produit.name}}</mat-option>
+
+                    </mat-select>
+                  </mat-form-field>
+                  <mat-form-field >
+                    <input formControlName="quantity" type="number" matInput placeholder="Quantity">
+
+                  </mat-form-field>
+                  <mat-form-field>
+                    <input formControlName="unitPrice" type="number" matInput placeholder="Unit Price" >
+
+                  </mat-form-field>
+                  <span>
+                    Total : {{calculateTotal(index)}}
+
+                  </span>
+                  <button *ngIf="last" mat-icon-button (click)="addItem()">
+                    <mat-icon aria-label="Edit" class="mat-primary">add</mat-icon>
+                  </button>
+                </div>
+
+              </div>
+            </mat-card>
+          </ng-container>
+
+        </ng-container>
+      </ng-container>
+
+    </div>
+  </form>
+  <span>
+    Total : {{calculateTotalFacture()}}
+  </span>
+</mat-card>
+
+<button mat-raised-button [disabled]="form.invalid" color="primary" (click)="save()">Save</button>
+<ng-container *ngIf="edit">
+  <button mat-raised-button color="accent" (click)="closeTab()">Close</button>
+</ng-container>
+

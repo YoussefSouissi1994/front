@@ -1,0 +1,17 @@
+<mat-tab-group
+  [selectedIndex]="selectedTab.value"
+  (selectedIndexChange)="selectedTab.setValue($event)">
+  <mat-tab label="List"><app-list (edit)="editFacture($event)" (view)="viewFacture($event)"></app-list> </mat-tab>
+
+  <ng-container *ngFor="let tab of tabs">
+    <ng-container *ngIf="tab.view">
+      <mat-tab [label]="tab.name" > <app-view [facture]="tab.dto"  (close)="closeTabView($event)"></app-view> </mat-tab>
+
+    </ng-container>
+
+    <ng-container *ngIf="!tab.view">
+      <mat-tab [label]="tab.name" > <app-add [edit]="tab.edit" [facture]="tab.facture" (close)="closeTab($event)"></app-add> </mat-tab>
+    </ng-container>
+
+  </ng-container>
+</mat-tab-group>

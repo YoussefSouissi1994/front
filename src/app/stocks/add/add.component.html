@@ -1,0 +1,23 @@
+<mat-card>
+
+  <div [formGroup]="form" class="add-field">
+    <div mat-dialog-content>
+      <h2>Add Fields</h2>
+
+        <span>{{stock?.product?.name}}</span>
+
+      <mat-form-field>
+        <input formControlName="quantity" ngDefaultControl matInput placeholder="quantity">
+        <mat-error *ngIf="quantity?.errors?.['required']">
+          Quantity is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+  </div>
+</mat-card>
+
+<button mat-raised-button [disabled]="form.invalid" color="primary" (click)="save()">Save</button>
+<ng-container *ngIf="edit">
+  <button mat-raised-button color="accent" (click)="closeTab()">Close</button>
+</ng-container>

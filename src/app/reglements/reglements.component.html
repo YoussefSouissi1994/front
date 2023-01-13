@@ -1,0 +1,9 @@
+<mat-tab-group
+  [selectedIndex]="selectedTab.value"
+  (selectedIndexChange)="selectedTab.setValue($event)">
+  <mat-tab label="List"><app-list (edit)="editReglement($event)"></app-list> </mat-tab>
+
+  <ng-container *ngFor="let tab of tabs">
+    <mat-tab [label]="tab.name" > <app-add [edit]="tab.edit" [reglement]="tab.reglement" (close)="closeTab($event)"></app-add> </mat-tab>
+  </ng-container>
+</mat-tab-group>
