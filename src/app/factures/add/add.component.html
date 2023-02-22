@@ -12,6 +12,14 @@
         </mat-select>
       </mat-form-field>
       <mat-form-field>
+        <mat-label>Date</mat-label>
+        <input matInput (click)="picker.open()" formControlName="date" ngDefaultControl [matDatepicker]="picker">
+        <mat-datepicker #picker ></mat-datepicker>
+        <mat-error *ngIf="form.controls['date'].invalid">
+          Date is required
+        </mat-error>
+      </mat-form-field>
+      <mat-form-field>
         <input formControlName="code" ngDefaultControl matInput placeholder="code">
         <mat-error *ngIf="code?.errors?.['required']">
           code is required

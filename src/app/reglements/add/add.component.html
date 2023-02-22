@@ -26,9 +26,6 @@
         </mat-error>
       </mat-form-field>
 
-      <button mat-icon-button (click)="addItem()">
-        <mat-icon aria-label="Edit" class="mat-primary">add</mat-icon>
-      </button>
       <ng-container formArrayName="items">
         <ng-container *ngFor="let item of formItems.controls; let index = index; let last = last" >
           <ng-container [formGroupName]="index">

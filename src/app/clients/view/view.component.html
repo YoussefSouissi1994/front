@@ -1,9 +1,112 @@
-<div>
-  <div style="display: block">
-    <canvas baseChart
-            [datasets]="data"
-            [type]="'lines'"
-            [labels]="labels">
-    </canvas>
-  </div>
-</div>
+<mat-card>
+<mat-grid-list cols="2" rowHeight="100px">
+  <mat-grid-tile
+    [colspan]="1"
+    [rowspan]="1">
+    <ng-container *ngIf="clientDetails && clientDetails.montantNonPaye > 0"><h1>Montant à payer {{clientDetails.montantNonPaye}}</h1></ng-container>
+    <ng-container *ngIf="clientDetails && clientDetails.montantNonPaye < 0"><h1>Solde client  {{-clientDetails.montantNonPaye}}</h1></ng-container>
+    <ng-container *ngIf="clientDetails && clientDetails.montantNonPaye == 0"><h1>Rien à payer</h1></ng-container>
+
+  </mat-grid-tile>
+  <mat-grid-tile
+    [colspan]="1"
+    [rowspan]="1">
+    <ng-container *ngIf="clientDetails && clientDetails.chiffreAffaire"><h1>Chiffre d'affaire {{clientDetails.chiffreAffaire}}</h1></ng-container>
+  </mat-grid-tile>
+</mat-grid-list>
+
+  <mat-grid-list cols="2">
+
+    <mat-grid-tile
+      [colspan]="1"
+      [rowspan]="1">
+      <canvas class="client-products" baseChart
+              [datasets]="data"
+              [options]="{responsive: true}"
+              [type]="'radar'"
+              [labels]="labels">
+      </canvas>
+    </mat-grid-tile>
+
+    <mat-grid-tile
+      [colspan]="1"
+      [rowspan]="1">
+      <canvas class="client-products" baseChart
+              [datasets]="dataPrice"
+              [options]="{responsive: true}"
+              [type]="'radar'"
+              [labels]="labels">
+      </canvas>
+    </mat-grid-tile>
+
+    <mat-grid-tile
+      [colspan]="2"
+      [rowspan]="1">
+      <table mat-table *ngIf="clientDetails && clientDetails.factureNonRegle" [dataSource]="clientDetails.factureNonRegle" class="mat-elevation-z8">
+
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="code">
+          <th mat-header-cell *matHeaderCellDef> Code </th>
+          <td mat-cell *matCellDef="let element"> {{element.facture.code}} </td>
+        </ng-container>
+        <!-- Name Column -->
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef> Date </th>
+          <td mat-cell *matCellDef="let element"> {{element.facture.date}} </td>
+        </ng-container>
+        <!-- Name Column -->
+        <ng-container matColumnDef="needToPay">
+          <th mat-header-cell *matHeaderCellDef> Need To Pay </th>
+          <td mat-cell *matCellDef="let element"> {{element.needToPay}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['code','date','needToPay']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['code','date', 'needToPay'];" [class]="row.needToPay ? 'notPayed' : 'payed'"></tr>
+      </table>
+    </mat-grid-tile>
+
+    <mat-grid-tile
+      [colspan]="2"
+      [rowspan]="1">
+      <table mat-table *ngIf="clientDetails && clientDetails.factureRegle" [dataSource]="clientDetails.factureRegle" class="mat-elevation-z8">
+
+        <!--- Note that these columns can be defined in any order.
+              The actual rendered columns are set as a property on the row definition" -->
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="code">
+          <th mat-header-cell *matHeaderCellDef> Code </th>
+          <td mat-cell *matCellDef="let element"> {{element.facture.code}} </td>
+        </ng-container>
+        <!-- Name Column -->
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef> Date </th>
+          <td mat-cell *matCellDef="let element"> {{element.facture.date}} </td>
+        </ng-container>
+        <!-- Name Column -->
+        <ng-container matColumnDef="needToPay">
+          <th mat-header-cell *matHeaderCellDef> Need To Pay </th>
+          <td mat-cell *matCellDef="let element"> {{element.needToPay}} </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="['code','date','needToPay']"></tr>
+        <tr mat-row *matRowDef="let row; columns: ['code','date', 'needToPay'];" [class]="row.needToPay ? 'notPayed' : 'payed'"></tr>
+      </table>
+    </mat-grid-tile>
+    <mat-grid-tile
+      [colspan]="2"
+      [rowspan]="1">
+      <canvas class="client-products" baseChart
+              [datasets]="dataParAn.datasets"
+              [type]="'bar'"
+              [labels]="labelsParAn">
+      </canvas>
+    </mat-grid-tile>
+  </mat-grid-list>
+</mat-card>
+<ng-container>
+  <button mat-raised-button color="accent" (click)="closeTab()">Close</button>
+</ng-container>

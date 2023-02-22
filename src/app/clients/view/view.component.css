@@ -1,0 +1,14 @@
+
+mat-grid-list {
+  width: 100%;
+  height: 100%;
+}
+ table{
+   width: 100%;
+ }
+.payed {
+  background-color: #DCEDC8;
+}
+.notPayed {
+  background-color: #FFCDD2;
+}

@@ -10,7 +10,7 @@ import {PageEvent} from "@angular/material/paginator";
   styleUrls: ['./list.component.css']
 })
 export class ListComponent implements OnInit {
-  displayedColumns: string[] = ['amount', 'date','client', 'actions'];
+  displayedColumns: string[] = ['amount', 'date','client'];
   dataSource: ReglementPage = {
     number: 0,
     numberOfElements: 0,

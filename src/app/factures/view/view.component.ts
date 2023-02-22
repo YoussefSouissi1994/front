@@ -1,6 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Facture, FactureReglementDTO} from "../../facture.service";
-import {installTempPackage} from "@angular/cli/utilities/install-package";
 
 @Component({
   selector: 'app-view',

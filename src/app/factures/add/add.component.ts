@@ -3,7 +3,7 @@ import {Client, ClientService} from "../../client.service";
 import {
   AbstractControl,
   FormArray,
-  FormBuilder,
+  FormBuilder, FormControl,
   FormGroup,
   Validators
 } from "@angular/forms";
@@ -41,6 +41,7 @@ export class AddComponent implements OnInit {
     private snackBar: MatSnackBar) {
     this.form = this.fb.group({
       code: this.fb.control( "", Validators.required),
+      date: new FormControl(this.edit ? this.facture?.date : new Date(), Validators.required),
       client: this.fb.control("", Validators.required),
       items: this.fb.array([])
     });
@@ -67,12 +68,14 @@ export class AddComponent implements OnInit {
       });
       this.form = this.fb.group({
         code: this.fb.control(this.edit ? this.facture?.code : "", Validators.required),
+        date: new FormControl(this.edit ? this.facture?.date : this.facture.date, Validators.required),
         client: this.fb.control(this.edit ? this.facture?.client : null, [Validators.required, Validators.nullValidator]),
         items: this.fb.array(config, [Validators.required])
       });
     } else {
       this.form = this.fb.group({
         code: this.fb.control( "", Validators.required),
+        date: new FormControl(new Date(), Validators.required),
         client: this.fb.control("", Validators.required),
         items: this.fb.array([],  [Validators.required])
       });
@@ -97,6 +100,7 @@ export class AddComponent implements OnInit {
     if (this.facture !== undefined) {
       this.facture.code = this.form.get("code")?.value
       this.facture.client = this.form.get("client")?.value
+      this.facture.date = this.form.get("date")?.value
       this.facture.items = this.formItems.controls.map(value => {
         return {
           product: value.get("product")?.value,

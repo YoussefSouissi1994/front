@@ -8,6 +8,7 @@ import {ReglementItem} from "./reglement.service";
 export interface Facture{
   id : string ;
   code : string;
+  date : Date;
   client : Client | null;
 
   items: FactureItem[] | [];

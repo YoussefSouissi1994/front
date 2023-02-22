@@ -26,6 +26,7 @@ export class FacturesComponent implements OnInit {
     facture: {
       id: "",
       code: "",
+      date: new Date(),
       client : null,
       items: []
     },

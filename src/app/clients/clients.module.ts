@@ -19,6 +19,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatSnackBarModule} from "@angular/material/snack-bar";
 import { ViewComponent } from './view/view.component';
 import {NgChartsModule} from "ng2-charts";
+import {MatGridListModule} from "@angular/material/grid-list";
 
 
 @NgModule({
@@ -31,22 +32,23 @@ import {NgChartsModule} from "ng2-charts";
   exports: [
     ListComponent
   ],
-  imports: [
-    CommonModule,
-    ClientsRoutingModule,
-    MatPaginatorModule,
-    MatTableModule,
-    MatCardModule,
-    MatTabsModule,
-    ReactiveFormsModule,
-    MatSelectModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatButtonModule,
-    MatDialogModule,
-    MatIconModule,
-    MatSnackBarModule,
-    NgChartsModule
-  ]
+    imports: [
+        CommonModule,
+        ClientsRoutingModule,
+        MatPaginatorModule,
+        MatTableModule,
+        MatCardModule,
+        MatTabsModule,
+        ReactiveFormsModule,
+        MatSelectModule,
+        MatFormFieldModule,
+        MatInputModule,
+        MatButtonModule,
+        MatDialogModule,
+        MatIconModule,
+        MatSnackBarModule,
+        NgChartsModule,
+        MatGridListModule
+    ]
 })
 export class ClientsModule { }

@@ -20,6 +20,10 @@ import {MatTableModule} from "@angular/material/table";
 import { ViewComponent } from './view/view.component';
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatListModule} from "@angular/material/list";
+import {MatDatepickerModule} from "@angular/material/datepicker";
+import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from "@angular/material/core";
+import {Platform} from "@angular/cdk/platform";
+import {AppDateAdapter, AppDateFormats} from "../reglements/reglements.module";
 
 
 @NgModule({
@@ -48,7 +52,19 @@ import {MatListModule} from "@angular/material/list";
         MatPaginatorModule,
         MatTableModule,
         MatGridListModule,
-        MatListModule
-    ]
+        MatListModule,
+        MatDatepickerModule
+    ],
+  providers: [
+    {
+      provide: DateAdapter,
+      useClass: AppDateAdapter,
+      deps: [MAT_DATE_LOCALE, Platform]
+    },
+    {
+      provide: MAT_DATE_FORMATS,
+      useValue: AppDateFormats
+    }
+  ]
 })
 export class FacturesModule { }
